@@ -1,0 +1,139 @@
+<!doctype html>
+<head>
+	<title>SEA</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap CDN -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/autosize@4.0.0/dist/autosize.min.js"></script>
+	<link href="flat-ui.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+	<style>
+		#titleFont{
+			font-size: 900%;
+			color:blue;
+			font-weight: bold;
+			letter-spacing:-10px;
+		}
+
+		#bodyFont{
+			color:snow;
+			font-size: 180%;
+			padding-top: 1%;
+			padding-bottom:1%;
+		}
+
+		#description {
+			color:snow;
+		}
+
+		.pushup {
+			padding-top: 5%;
+			padding-bottom: 4%;
+        }
+
+		.pushleft {
+			padding-left: 15%;
+		}
+
+		.pushleftform {
+			padding-left: 40%;
+		}
+
+		.buttons {
+			background-color:black;
+			color:snow;
+			font-weight: 450;
+		}
+
+		.prediction {
+			font-size:400%;
+			color:snow;
+		}
+
+		img {
+			max-width: 100%;
+        	max-height: 100%;
+        	display: block;
+		}
+		#myVideo {
+			position: fixed;
+			right: 0;
+			bottom: 0;
+			min-width: 100%;
+			min-height: 100%;
+		}
+
+		.content {
+			position: absolute;
+			bottom: 10;
+			color: #f1f1f1;
+			width: 100%;
+			padding: 20px;
+		}
+
+		.content2 {
+			background-color:rgba(0,0,0,0.5);
+			position: absolute;
+			bottom: 10;
+			color: #f1f1f1;
+			width: 100%;
+			padding: 20px;
+		}
+		h1 + h5 { 
+			margin-top: -30px; 
+		}
+	</style>
+</head>
+
+<video autoplay muted loop id = "myVideo">
+	<source src="static/barras012.mp4" type="video/mp4">
+</video>
+<body>
+	<div class = "content">
+		<section>
+			<div class="pushup pushleft text-left">
+				<h1 id = "titleFont">SEA</h1>
+				<h5 id = "description">SAVING ENDANGERED ANIMALS</h5>
+			</div>
+		</section>
+		<section class = "pushleftform">
+			<div>
+				<h2 id = "bodyFont">Select a file to upload</h2>
+			</div>
+			<div>
+				<form method="post" action="/" enctype="multipart/form-data">
+					<dl>
+					<p>
+						<input type="file" name="file" autocomplete="off" required class = "button">
+					</p>
+					</dl>
+					<p>
+						<input type="submit" value="Submit" class = "button">
+					</p>
+				</form>
+			</div>
+			<div class = "prediction">
+				<p>
+					{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						Label: {{ messages[0] }} <br>									
+						Accuracy: {{ messages[1] }}
+					{% endif %}
+					{% endwith %}
+				</p>
+			</div>
+			<div>
+				{% if filename %}
+				<div>
+					<img src="../{{url_for('display_image', filename=filename)}}">
+				</div>
+				{% endif %}
+			</div>
+		</section>
+	</div>
+</body>
